@@ -32,17 +32,26 @@ class CardsListViewController: UIViewController {
     }()
     
     private lazy var addButton: UIButton = {
-        let btn = UIButton(type: .system)
-        btn.setTitle("Add new card", for: .normal)
-        btn.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        btn.backgroundColor = .systemGreen
-        btn.setTitleColor(.white, for: .normal)
+        var configuration = UIButton.Configuration.filled()
+        configuration.title = "Add new card"
+        configuration.image = UIImage(systemName: "plus")
+        configuration.imagePadding = 10
+        configuration.baseBackgroundColor = .systemGreen
+        configuration.baseForegroundColor = .white
+        configuration.cornerStyle = .medium
+        
+        configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
+        
+        let btn = UIButton(configuration: configuration)
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .regular)
         btn.layer.cornerRadius = Constants.buttonCornerRadius
         btn.translatesAutoresizingMaskIntoConstraints = false
+        
         let action = UIAction { [weak self] _ in
             self?.didTapAddButton()
         }
         btn.addAction(action, for: .primaryActionTriggered)
+        
         return btn
     }()
     
@@ -79,19 +88,22 @@ class CardsListViewController: UIViewController {
         setupLayouts()
     }
         
-  private func setupLayouts() {
+    private func setupLayouts() {
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
             tableView.bottomAnchor.constraint(equalTo: addButton.topAnchor, constant: -10),
             
-            addButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
-            addButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
+            
+            addButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             addButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            
+            addButton.widthAnchor.constraint(lessThanOrEqualToConstant: view.frame.width - 40),
             addButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
+
     
     @objc private func didTapBackButton() {
         self.navigationController?.popToRootViewController(animated: true)

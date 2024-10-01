@@ -101,8 +101,8 @@ class CartViewController: UIViewController {
         stackShipment.translatesAutoresizingMaskIntoConstraints = false
 
         let stack = UIStackView(arrangedSubviews: [
-            stackTotal,
-            stackShipment
+            stackShipment,
+            stackTotal
         ])
         stack.axis = .vertical
         stack.alignment = .fill
