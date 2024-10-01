@@ -8,7 +8,7 @@
 import Foundation
 import RozetkaPaySDK
 
-class CardsViewModel: ObservableObject {
+class CardsViewModel {
     
     var items: [CardToken]
     

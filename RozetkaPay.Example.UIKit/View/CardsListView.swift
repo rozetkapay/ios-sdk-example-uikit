@@ -8,13 +8,45 @@
 import UIKit
 import RozetkaPaySDK
 import OSLog
+import SwiftUI
 
 class CardsListViewController: UIViewController {
     
+    //MARK: - Constants
+    private enum Constants {
+        static let buttonCornerRadius: CGFloat = 16
+    }
+
+    //MARK: - ViewModel
     var viewModel: CardsViewModel!
-    private let tableView = UITableView()
-    private let addButton = UIButton(type: .system)
     
+    
+    //MARK: - UI
+    private lazy var tableView: UITableView = {
+        let list = UITableView()
+        list.delegate = self
+        list.dataSource = self
+        list.register(CardCell.self, forCellReuseIdentifier: "CardCell")
+        list.translatesAutoresizingMaskIntoConstraints = false
+        return list
+    }()
+    
+    private lazy var addButton: UIButton = {
+        let btn = UIButton(type: .system)
+        btn.setTitle("Add new card", for: .normal)
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        btn.backgroundColor = .systemGreen
+        btn.setTitleColor(.white, for: .normal)
+        btn.layer.cornerRadius = Constants.buttonCornerRadius
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        let action = UIAction { [weak self] _ in
+            self?.didTapAddButton()
+        }
+        btn.addAction(action, for: .primaryActionTriggered)
+        return btn
+    }()
+    
+    //MARK: - Inits
     init(items: [CardToken]) {
         self.viewModel = CardsViewModel(items: items)
         super.init(nibName: nil, bundle: nil)
@@ -24,11 +56,13 @@ class CardsListViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
     }
     
+    //MARK: - Methods
     private func setupUI() {
         title = "Tokenize card"
         navigationItem.leftBarButtonItem = UIBarButtonItem(
@@ -39,24 +73,13 @@ class CardsListViewController: UIViewController {
         )
         view.backgroundColor = UIColor.systemBackground
         
-        // Setup Table View
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(CardCell.self, forCellReuseIdentifier: "CardCell")
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
-        
-        // Setup Add Button
-        addButton.setTitle("Add new card", for: .normal)
-        addButton.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .bold)
-        addButton.backgroundColor = .systemGreen
-        addButton.setTitleColor(.white, for: .normal)
-        addButton.layer.cornerRadius = 12
-        addButton.translatesAutoresizingMaskIntoConstraints = false
-        addButton.addTarget(self, action: #selector(didTapAddButton), for: .touchUpInside)
         view.addSubview(addButton)
         
-        // Setup constraints
+        setupLayouts()
+    }
+        
+  private func setupLayouts() {
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
@@ -75,26 +98,25 @@ class CardsListViewController: UIViewController {
     }
     
     @objc private func didTapAddButton() {
-        // Создаем представление TokenizationView (SwiftUI)
-                let tokenizationView = RozetkaPaySDK.TokenizationView(
-                    parameters: TokenizationParameters(
-                        client: viewModel.clientWidgetParameters,
-                        viewParameters: TokenizationViewParameters(
-                            cardNameField: .optional,
-                            emailField: .required,
-                            cardholderNameField: .optional
-                        )
-                    ),
-                    onResultCallback: { result in
-                        self.handleResult(result)
-                    }
+      
+        let tokenizationView = RozetkaPaySDK.TokenizationView(
+            parameters: TokenizationParameters(
+                client: viewModel.clientWidgetParameters,
+                viewParameters: TokenizationViewParameters(
+                    cardNameField: .optional,
+                    emailField: .required,
+                    cardholderNameField: .optional
                 )
-                
-                // Оборачиваем SwiftUI в UIHostingController
-                let hostingController = UIHostingController(rootView: tokenizationView)
-                
-                // Представляем UIHostingController как обычный контроллер
-                present(hostingController, animated: true, completion: nil)
+            ),
+            onResultCallback: { [weak self] result in
+                self?.handleResult(result)
+                self?.dismiss(animated: true, completion: nil)
+            }
+        )
+        
+        let hostingController = UIHostingController(rootView: tokenizationView)
+        hostingController.modalPresentationStyle = .fullScreen
+        self.present(hostingController, animated: true, completion: nil)
     }
 }
 
@@ -107,10 +129,15 @@ extension CardsListViewController {
         case .failure(let error):
             switch error {
             case let .failed(message, _):
+                
                 if let message = message, !message.isEmpty {
-                    Logger.tokenizedCard.warning("⚠️ WARNING: An error with message \"\(message)\". Please try again. ⚠️")
+                    Logger.tokenizedCard.warning(
+                        "⚠️ WARNING: An error with message \"\(message)\". Please try again. ⚠️"
+                    )
                 } else {
-                    Logger.tokenizedCard.warning("⚠️ WARNING: An error occurred during tokenization process. Please try again. ⚠️")
+                    Logger.tokenizedCard.warning(
+                        "⚠️ WARNING: An error occurred during tokenization process. Please try again. ⚠️"
+                    )
                 }
             case .cancelled:
                 Logger.tokenizedCard.info("Tokenization was cancelled")
@@ -119,13 +146,14 @@ extension CardsListViewController {
     }
     
     private func addNewCard(tokenizedCard: TokenizedCard) {
-        let newCard = CardToken(
-            paymentSystem: tokenizedCard.cardInfo?.paymentSystem,
-            name: tokenizedCard.name,
-            maskedNumber: tokenizedCard.cardInfo?.maskedNumber ?? "",
-            cardToken: tokenizedCard.token
+        viewModel.add(
+            item: CardToken(
+                paymentSystem: tokenizedCard.cardInfo?.paymentSystem,
+                name: tokenizedCard.name,
+                maskedNumber: tokenizedCard.cardInfo?.maskedNumber ,
+                cardToken: tokenizedCard.token
+            )
         )
-        viewModel.add(item: newCard)
         tableView.reloadData()
     }
     

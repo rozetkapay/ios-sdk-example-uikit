@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		D10190162CAC17FC00BAAF8D /* UINavigationBarExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10190152CAC17FC00BAAF8D /* UINavigationBarExtensions.swift */; };
+		D10190182CAC5BD000BAAF8D /* CartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10190172CAC5BD000BAAF8D /* CartView.swift */; };
+		D101901A2CAC5BE600BAAF8D /* CartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10190192CAC5BE600BAAF8D /* CartViewModel.swift */; };
+		D101901C2CAC5C9100BAAF8D /* CartItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D101901B2CAC5C9100BAAF8D /* CartItemCell.swift */; };
 		D11AF5DE2CA9E843006C9CA0 /* LoggerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11AF5DD2CA9E843006C9CA0 /* LoggerExtensions.swift */; };
 		D11AF5E02CA9E85F006C9CA0 /* NumberUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11AF5DF2CA9E85F006C9CA0 /* NumberUtils.swift */; };
 		D11AF5E32CA9E886006C9CA0 /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11AF5E22CA9E886006C9CA0 /* Credentials.swift */; };
@@ -29,6 +32,9 @@
 
 /* Begin PBXFileReference section */
 		D10190152CAC17FC00BAAF8D /* UINavigationBarExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationBarExtensions.swift; sourceTree = "<group>"; };
+		D10190172CAC5BD000BAAF8D /* CartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartView.swift; sourceTree = "<group>"; };
+		D10190192CAC5BE600BAAF8D /* CartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewModel.swift; sourceTree = "<group>"; };
+		D101901B2CAC5C9100BAAF8D /* CartItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartItemCell.swift; sourceTree = "<group>"; };
 		D11AF5DD2CA9E843006C9CA0 /* LoggerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerExtensions.swift; sourceTree = "<group>"; };
 		D11AF5DF2CA9E85F006C9CA0 /* NumberUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberUtils.swift; sourceTree = "<group>"; };
 		D11AF5E22CA9E886006C9CA0 /* Credentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
@@ -95,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				D11AF5EF2CA9EA12006C9CA0 /* CardsViewModel.swift */,
+				D10190192CAC5BE600BAAF8D /* CartViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -105,6 +112,7 @@
 				D11AF5F52CA9EAC3006C9CA0 /* Cells */,
 				D11AF5F82CA9EB0F006C9CA0 /* CardsListView.swift */,
 				D11AF5FA2CA9F202006C9CA0 /* ContentViewController.swift */,
+				D10190172CAC5BD000BAAF8D /* CartView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -113,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				D11AF5F62CA9EACB006C9CA0 /* CardCell.swift */,
+				D101901B2CAC5C9100BAAF8D /* CartItemCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -228,9 +237,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D10190182CAC5BD000BAAF8D /* CartView.swift in Sources */,
 				D11AF5E32CA9E886006C9CA0 /* Credentials.swift in Sources */,
 				D10190162CAC17FC00BAAF8D /* UINavigationBarExtensions.swift in Sources */,
 				D11AF5EA2CA9E8ED006C9CA0 /* Product.swift in Sources */,
+				D101901A2CAC5BE600BAAF8D /* CartViewModel.swift in Sources */,
 				D11AF5F02CA9EA12006C9CA0 /* CardsViewModel.swift in Sources */,
 				D11AF5EC2CA9E901006C9CA0 /* PaymentSystem.swift in Sources */,
 				D11AF5E02CA9E85F006C9CA0 /* NumberUtils.swift in Sources */,
@@ -240,6 +251,7 @@
 				D11AF5E82CA9E8D1006C9CA0 /* CardToken.swift in Sources */,
 				D1F8FAFD2C9DDA2D000FCF08 /* AppDelegate.swift in Sources */,
 				D11AF5F92CA9EB0F006C9CA0 /* CardsListView.swift in Sources */,
+				D101901C2CAC5C9100BAAF8D /* CartItemCell.swift in Sources */,
 				D1F8FAFF2C9DDA2D000FCF08 /* SceneDelegate.swift in Sources */,
 				D11AF5F72CA9EACB006C9CA0 /* CardCell.swift in Sources */,
 			);

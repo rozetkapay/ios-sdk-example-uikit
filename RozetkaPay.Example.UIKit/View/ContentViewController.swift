@@ -9,6 +9,10 @@ import UIKit
 
 class ContentViewController: UIViewController {
     
+    private enum Constants {
+        static let buttonCornerRadius: CGFloat = 16
+    }
+    
     private let cardsButton = UIButton(type: .system)
     private let payButton = UIButton(type: .system)
     
@@ -25,7 +29,7 @@ class ContentViewController: UIViewController {
         cardsButton.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .bold)
         cardsButton.backgroundColor = UIColor.label
         cardsButton.setTitleColor(UIColor.systemBackground, for: .normal)
-        cardsButton.layer.cornerRadius = 10
+        cardsButton.layer.cornerRadius = Constants.buttonCornerRadius
         cardsButton.translatesAutoresizingMaskIntoConstraints = false
         cardsButton.addTarget(self, action: #selector(didTapCardsButton), for: .touchUpInside)
         
@@ -33,7 +37,7 @@ class ContentViewController: UIViewController {
         payButton.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .bold)
         payButton.backgroundColor = .systemGreen
         payButton.setTitleColor(.white, for: .normal)
-        payButton.layer.cornerRadius = 10
+        payButton.layer.cornerRadius = Constants.buttonCornerRadius
         payButton.translatesAutoresizingMaskIntoConstraints = false
         payButton.addTarget(self, action: #selector(didTapPayButton), for: .touchUpInside)
         
@@ -61,14 +65,13 @@ class ContentViewController: UIViewController {
     
     
     @objc private func didTapCardsButton() {
-        let cardsVC = CardsListViewController(items: CardsViewModel.mocData)
-        navigationController?.pushViewController(cardsVC, animated: true)
+        let vc = CardsListViewController(items: CardsViewModel.mocData)
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc private func didTapPayButton() {
-        // Navigate to CartViewController
-        //        let cartVC = CartViewController(orderId: "order_test_3232-445", items: CartViewModel.mocData)
-        //        navigationController?.pushViewController(cartVC, animated: true)
+        let vc = CartViewController(orderId: "order_test_3232-445", items: CartViewModel.mocData)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
