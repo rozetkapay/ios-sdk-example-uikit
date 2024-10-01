@@ -6,14 +6,20 @@
 //
 
 import UIKit
+import RozetkaPaySDK
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        RozetkaPaySdk.initSdk(
+            appContext: application,
+            mode: .development,
+            enableLogging: true,
+            validationRules: RozetkaPaySdkValidationRules()
+        )
+        
         return true
     }
 

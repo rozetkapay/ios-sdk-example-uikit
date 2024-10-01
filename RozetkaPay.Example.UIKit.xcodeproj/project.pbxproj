@@ -7,23 +7,46 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D10190162CAC17FC00BAAF8D /* UINavigationBarExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10190152CAC17FC00BAAF8D /* UINavigationBarExtensions.swift */; };
+		D11AF5DE2CA9E843006C9CA0 /* LoggerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11AF5DD2CA9E843006C9CA0 /* LoggerExtensions.swift */; };
+		D11AF5E02CA9E85F006C9CA0 /* NumberUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11AF5DF2CA9E85F006C9CA0 /* NumberUtils.swift */; };
+		D11AF5E32CA9E886006C9CA0 /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11AF5E22CA9E886006C9CA0 /* Credentials.swift */; };
+		D11AF5E52CA9E89F006C9CA0 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11AF5E42CA9E89F006C9CA0 /* Config.swift */; };
+		D11AF5E82CA9E8D1006C9CA0 /* CardToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11AF5E72CA9E8D1006C9CA0 /* CardToken.swift */; };
+		D11AF5EA2CA9E8ED006C9CA0 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11AF5E92CA9E8ED006C9CA0 /* Product.swift */; };
+		D11AF5EC2CA9E901006C9CA0 /* PaymentSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11AF5EB2CA9E901006C9CA0 /* PaymentSystem.swift */; };
+		D11AF5F02CA9EA12006C9CA0 /* CardsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11AF5EF2CA9EA12006C9CA0 /* CardsViewModel.swift */; };
+		D11AF5F72CA9EACB006C9CA0 /* CardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11AF5F62CA9EACB006C9CA0 /* CardCell.swift */; };
+		D11AF5F92CA9EB0F006C9CA0 /* CardsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11AF5F82CA9EB0F006C9CA0 /* CardsListView.swift */; };
+		D11AF5FB2CA9F202006C9CA0 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11AF5FA2CA9F202006C9CA0 /* ContentViewController.swift */; };
 		D1F8FAFD2C9DDA2D000FCF08 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F8FAFC2C9DDA2D000FCF08 /* AppDelegate.swift */; };
 		D1F8FAFF2C9DDA2D000FCF08 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F8FAFE2C9DDA2D000FCF08 /* SceneDelegate.swift */; };
-		D1F8FB012C9DDA2D000FCF08 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F8FB002C9DDA2D000FCF08 /* ViewController.swift */; };
-		D1F8FB042C9DDA2D000FCF08 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = D1F8FB032C9DDA2D000FCF08 /* Base */; };
 		D1F8FB062C9DDA2F000FCF08 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D1F8FB052C9DDA2F000FCF08 /* Assets.xcassets */; };
 		D1F8FB092C9DDA2F000FCF08 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = D1F8FB082C9DDA2F000FCF08 /* Base */; };
+		D1F8FB122C9DDFD1000FCF08 /* RozetkaPaySDK in Frameworks */ = {isa = PBXBuildFile; productRef = D1F8FB112C9DDFD1000FCF08 /* RozetkaPaySDK */; };
+		D1F8FB152C9DE5C5000FCF08 /* RozetkaPaySDK in Frameworks */ = {isa = PBXBuildFile; productRef = D1F8FB142C9DE5C5000FCF08 /* RozetkaPaySDK */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D10190152CAC17FC00BAAF8D /* UINavigationBarExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationBarExtensions.swift; sourceTree = "<group>"; };
+		D11AF5DD2CA9E843006C9CA0 /* LoggerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerExtensions.swift; sourceTree = "<group>"; };
+		D11AF5DF2CA9E85F006C9CA0 /* NumberUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberUtils.swift; sourceTree = "<group>"; };
+		D11AF5E22CA9E886006C9CA0 /* Credentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
+		D11AF5E42CA9E89F006C9CA0 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		D11AF5E72CA9E8D1006C9CA0 /* CardToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardToken.swift; sourceTree = "<group>"; };
+		D11AF5E92CA9E8ED006C9CA0 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
+		D11AF5EB2CA9E901006C9CA0 /* PaymentSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSystem.swift; sourceTree = "<group>"; };
+		D11AF5EF2CA9EA12006C9CA0 /* CardsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsViewModel.swift; sourceTree = "<group>"; };
+		D11AF5F62CA9EACB006C9CA0 /* CardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCell.swift; sourceTree = "<group>"; };
+		D11AF5F82CA9EB0F006C9CA0 /* CardsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsListView.swift; sourceTree = "<group>"; };
+		D11AF5FA2CA9F202006C9CA0 /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		D1F8FAF92C9DDA2D000FCF08 /* RozetkaPay.Example.UIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RozetkaPay.Example.UIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1F8FAFC2C9DDA2D000FCF08 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D1F8FAFE2C9DDA2D000FCF08 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		D1F8FB002C9DDA2D000FCF08 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		D1F8FB032C9DDA2D000FCF08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D1F8FB052C9DDA2F000FCF08 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D1F8FB082C9DDA2F000FCF08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D1F8FB0A2C9DDA2F000FCF08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D1F8FB162C9DE6DA000FCF08 /* RozetkaPay.Example.UIKit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RozetkaPay.Example.UIKit.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,12 +54,69 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1F8FB122C9DDFD1000FCF08 /* RozetkaPaySDK in Frameworks */,
+				D1F8FB152C9DE5C5000FCF08 /* RozetkaPaySDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D11AF5DC2CA9E815006C9CA0 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D11AF5DD2CA9E843006C9CA0 /* LoggerExtensions.swift */,
+				D11AF5DF2CA9E85F006C9CA0 /* NumberUtils.swift */,
+				D10190152CAC17FC00BAAF8D /* UINavigationBarExtensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D11AF5E12CA9E877006C9CA0 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				D11AF5E22CA9E886006C9CA0 /* Credentials.swift */,
+				D11AF5E42CA9E89F006C9CA0 /* Config.swift */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		D11AF5E62CA9E8C5006C9CA0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D11AF5E72CA9E8D1006C9CA0 /* CardToken.swift */,
+				D11AF5E92CA9E8ED006C9CA0 /* Product.swift */,
+				D11AF5EB2CA9E901006C9CA0 /* PaymentSystem.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D11AF5ED2CA9E9E9006C9CA0 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D11AF5EF2CA9EA12006C9CA0 /* CardsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		D11AF5EE2CA9E9F0006C9CA0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D11AF5F52CA9EAC3006C9CA0 /* Cells */,
+				D11AF5F82CA9EB0F006C9CA0 /* CardsListView.swift */,
+				D11AF5FA2CA9F202006C9CA0 /* ContentViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D11AF5F52CA9EAC3006C9CA0 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				D11AF5F62CA9EACB006C9CA0 /* CardCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		D1F8FAF02C9DDA2D000FCF08 = {
 			isa = PBXGroup;
 			children = (
@@ -56,10 +136,14 @@
 		D1F8FAFB2C9DDA2D000FCF08 /* RozetkaPay.Example.UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				D11AF5E12CA9E877006C9CA0 /* Config */,
+				D11AF5E62CA9E8C5006C9CA0 /* Model */,
+				D11AF5EE2CA9E9F0006C9CA0 /* View */,
+				D11AF5ED2CA9E9E9006C9CA0 /* ViewModel */,
+				D11AF5DC2CA9E815006C9CA0 /* Extensions */,
+				D1F8FB162C9DE6DA000FCF08 /* RozetkaPay.Example.UIKit.entitlements */,
 				D1F8FAFC2C9DDA2D000FCF08 /* AppDelegate.swift */,
 				D1F8FAFE2C9DDA2D000FCF08 /* SceneDelegate.swift */,
-				D1F8FB002C9DDA2D000FCF08 /* ViewController.swift */,
-				D1F8FB022C9DDA2D000FCF08 /* Main.storyboard */,
 				D1F8FB052C9DDA2F000FCF08 /* Assets.xcassets */,
 				D1F8FB072C9DDA2F000FCF08 /* LaunchScreen.storyboard */,
 				D1F8FB0A2C9DDA2F000FCF08 /* Info.plist */,
@@ -83,6 +167,10 @@
 			dependencies = (
 			);
 			name = RozetkaPay.Example.UIKit;
+			packageProductDependencies = (
+				D1F8FB112C9DDFD1000FCF08 /* RozetkaPaySDK */,
+				D1F8FB142C9DE5C5000FCF08 /* RozetkaPaySDK */,
+			);
 			productName = RozetkaPay.Example.UIKit;
 			productReference = D1F8FAF92C9DDA2D000FCF08 /* RozetkaPay.Example.UIKit.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +199,9 @@
 				Base,
 			);
 			mainGroup = D1F8FAF02C9DDA2D000FCF08;
+			packageReferences = (
+				D1F8FB132C9DE5C5000FCF08 /* XCRemoteSwiftPackageReference "RozetkaPay.SDK-iOS" */,
+			);
 			productRefGroup = D1F8FAFA2C9DDA2D000FCF08 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -127,7 +218,6 @@
 			files = (
 				D1F8FB062C9DDA2F000FCF08 /* Assets.xcassets in Resources */,
 				D1F8FB092C9DDA2F000FCF08 /* Base in Resources */,
-				D1F8FB042C9DDA2D000FCF08 /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,23 +228,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D1F8FB012C9DDA2D000FCF08 /* ViewController.swift in Sources */,
+				D11AF5E32CA9E886006C9CA0 /* Credentials.swift in Sources */,
+				D10190162CAC17FC00BAAF8D /* UINavigationBarExtensions.swift in Sources */,
+				D11AF5EA2CA9E8ED006C9CA0 /* Product.swift in Sources */,
+				D11AF5F02CA9EA12006C9CA0 /* CardsViewModel.swift in Sources */,
+				D11AF5EC2CA9E901006C9CA0 /* PaymentSystem.swift in Sources */,
+				D11AF5E02CA9E85F006C9CA0 /* NumberUtils.swift in Sources */,
+				D11AF5FB2CA9F202006C9CA0 /* ContentViewController.swift in Sources */,
+				D11AF5E52CA9E89F006C9CA0 /* Config.swift in Sources */,
+				D11AF5DE2CA9E843006C9CA0 /* LoggerExtensions.swift in Sources */,
+				D11AF5E82CA9E8D1006C9CA0 /* CardToken.swift in Sources */,
 				D1F8FAFD2C9DDA2D000FCF08 /* AppDelegate.swift in Sources */,
+				D11AF5F92CA9EB0F006C9CA0 /* CardsListView.swift in Sources */,
 				D1F8FAFF2C9DDA2D000FCF08 /* SceneDelegate.swift in Sources */,
+				D11AF5F72CA9EACB006C9CA0 /* CardCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		D1F8FB022C9DDA2D000FCF08 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D1F8FB032C9DDA2D000FCF08 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		D1F8FB072C9DDA2F000FCF08 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -218,7 +311,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -275,7 +368,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -290,23 +383,30 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = RozetkaPay.Example.UIKit/RozetkaPay.Example.UIKit.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = JVAX7U4FD5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RozetkaPay.Example.UIKit/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = RozetkaPay.Example.UIkit;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.rozetkapay.RozetkaPay-Example-UIkit.RozetkaPay-Example-UIKit";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.rozetkapay.RozetkaPay-Example-UIKit-Bars";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -318,23 +418,30 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = RozetkaPay.Example.UIKit/RozetkaPay.Example.UIKit.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = JVAX7U4FD5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RozetkaPay.Example.UIKit/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = RozetkaPay.Example.UIkit;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.rozetkapay.RozetkaPay-Example-UIkit.RozetkaPay-Example-UIKit";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.rozetkapay.RozetkaPay-Example-UIKit-Bars";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -363,6 +470,29 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D1F8FB132C9DE5C5000FCF08 /* XCRemoteSwiftPackageReference "RozetkaPay.SDK-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/casiocompa/RozetkaPay.SDK-iOS.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D1F8FB112C9DDFD1000FCF08 /* RozetkaPaySDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RozetkaPaySDK;
+		};
+		D1F8FB142C9DE5C5000FCF08 /* RozetkaPaySDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D1F8FB132C9DE5C5000FCF08 /* XCRemoteSwiftPackageReference "RozetkaPay.SDK-iOS" */;
+			productName = RozetkaPaySDK;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D1F8FAF12C9DDA2D000FCF08 /* Project object */;
 }
