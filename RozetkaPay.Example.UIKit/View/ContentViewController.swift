@@ -7,71 +7,88 @@
 
 import UIKit
 
-class ContentViewController: UIViewController {
-    
-    private enum Constants {
-        static let buttonCornerRadius: CGFloat = 16
-    }
-    
-    private let cardsButton = UIButton(type: .system)
-    private let payButton = UIButton(type: .system)
-    
+
+import UIKit
+
+final class ContentViewController: UIViewController {
+
+    private lazy var cardsButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle(Localization.main_cards_button_title.description, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        button.backgroundColor = UIColor.label
+        button.setTitleColor(UIColor.systemBackground, for: .normal)
+        button.layer.cornerRadius = Config.buttonCornerRadius
+        button.translatesAutoresizingMaskIntoConstraints = false
+        let action = UIAction { [weak self] _ in
+            self?.didTapCardsButton()
+        }
+        button.addAction(action, for: .primaryActionTriggered)
+        return button
+    }()
+
+    private lazy var payButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle(Localization.main_pay_button_title.description, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        button.backgroundColor = .systemGreen
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = Config.buttonCornerRadius
+        button.translatesAutoresizingMaskIntoConstraints = false
+        let action = UIAction { [weak self] _ in
+            self?.didTapPayButton()
+        }
+        button.addAction(action, for: .primaryActionTriggered)
+        return button
+    }()
+
+    private lazy var stackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [cardsButton, payButton])
+        stack.axis = .vertical
+        stack.alignment = .fill
+        stack.distribution = .fillEqually
+        stack.spacing = 20
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
     }
-    
+
     private func setupUI() {
-        title = "RozetkaPay.Example"
-        view.backgroundColor = UIColor.systemBackground
-        
-        cardsButton.setTitle("Cards", for: .normal)
-        cardsButton.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .bold)
-        cardsButton.backgroundColor = UIColor.label
-        cardsButton.setTitleColor(UIColor.systemBackground, for: .normal)
-        cardsButton.layer.cornerRadius = Constants.buttonCornerRadius
-        cardsButton.translatesAutoresizingMaskIntoConstraints = false
-        cardsButton.addTarget(self, action: #selector(didTapCardsButton), for: .touchUpInside)
-        
-        payButton.setTitle("Pay", for: .normal)
-        payButton.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .bold)
-        payButton.backgroundColor = .systemGreen
-        payButton.setTitleColor(.white, for: .normal)
-        payButton.layer.cornerRadius = Constants.buttonCornerRadius
-        payButton.translatesAutoresizingMaskIntoConstraints = false
-        payButton.addTarget(self, action: #selector(didTapPayButton), for: .touchUpInside)
-        
-        
-        let stackView = UIStackView(arrangedSubviews: [
-            cardsButton,
-            payButton
-        ])
-        stackView.axis = .vertical
-        stackView.alignment = .fill
-        stackView.distribution = .fillEqually
-        stackView.spacing = 20
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+        title = Localization.main_title.description
+        view.backgroundColor = .systemBackground
+
         view.addSubview(stackView)
-        
+
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            
+
             cardsButton.heightAnchor.constraint(equalToConstant: 50),
             payButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
-    
-    
-    @objc private func didTapCardsButton() {
+
+    private func didTapCardsButton() {
         let vc = CardsListViewController(items: CardsViewModel.mocData)
         navigationController?.pushViewController(vc, animated: true)
     }
-    
-    @objc private func didTapPayButton() {
-        let vc = CartViewController(orderId: "order_test_3232-445", items: CartViewModel.mocData)
+
+    private func didTapPayButton() {
+        let vc = CartViewController(
+            orderId: generateOrderId(),
+            items: CartViewModel.mocData
+        )
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    
+    private func generateOrderId() -> String {
+        return "order-apple-\(Int(Date().timeIntervalSince1970 * 1000))"
     }
 }
 

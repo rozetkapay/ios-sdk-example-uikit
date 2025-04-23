@@ -13,7 +13,8 @@ final class CartViewModel {
     var orderId: String
     
     var clientParameters: ClientAuthParameters = ClientAuthParameters(
-        token: Credentials.DEV_AUTH_TOKEN
+        token: Credentials.DEV_AUTH_TOKEN,
+        widgetKey: Credentials.WIDGET_KEY
     )
     
     var testApplePayConfig: ApplePayConfig = ApplePayConfig.Test(

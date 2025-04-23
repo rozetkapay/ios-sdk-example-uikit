@@ -22,6 +22,13 @@
 		D11AF5F72CA9EACB006C9CA0 /* CardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11AF5F62CA9EACB006C9CA0 /* CardCell.swift */; };
 		D11AF5F92CA9EB0F006C9CA0 /* CardsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11AF5F82CA9EB0F006C9CA0 /* CardsListView.swift */; };
 		D11AF5FB2CA9F202006C9CA0 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11AF5FA2CA9F202006C9CA0 /* ContentViewController.swift */; };
+		D17E0E352DB93A0D00F8D934 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D17E0E342DB93A0D00F8D934 /* Localizable.xcstrings */; };
+		D17E0E372DB93C5800F8D934 /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17E0E362DB93C5800F8D934 /* CustomAlertView.swift */; };
+		D17E0E392DB93C7A00F8D934 /* AlertItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17E0E382DB93C7A00F8D934 /* AlertItem.swift */; };
+		D17E0E3B2DB93E5C00F8D934 /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17E0E3A2DB93E5C00F8D934 /* CustomAlertViewController.swift */; };
+		D17E0E3F2DB93EBC00F8D934 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17E0E3E2DB93EBC00F8D934 /* Localization.swift */; };
+		D17E0E412DB9427800F8D934 /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17E0E402DB9427800F8D934 /* UIViewControllerExtensions.swift */; };
+		D17E0E812DB97A6900F8D934 /* ReusableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17E0E802DB97A6900F8D934 /* ReusableCell.swift */; };
 		D1F8FAFD2C9DDA2D000FCF08 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F8FAFC2C9DDA2D000FCF08 /* AppDelegate.swift */; };
 		D1F8FAFF2C9DDA2D000FCF08 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F8FAFE2C9DDA2D000FCF08 /* SceneDelegate.swift */; };
 		D1F8FB062C9DDA2F000FCF08 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D1F8FB052C9DDA2F000FCF08 /* Assets.xcassets */; };
@@ -46,6 +53,13 @@
 		D11AF5F62CA9EACB006C9CA0 /* CardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCell.swift; sourceTree = "<group>"; };
 		D11AF5F82CA9EB0F006C9CA0 /* CardsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsListView.swift; sourceTree = "<group>"; };
 		D11AF5FA2CA9F202006C9CA0 /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
+		D17E0E342DB93A0D00F8D934 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		D17E0E362DB93C5800F8D934 /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
+		D17E0E382DB93C7A00F8D934 /* AlertItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertItem.swift; sourceTree = "<group>"; };
+		D17E0E3A2DB93E5C00F8D934 /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
+		D17E0E3E2DB93EBC00F8D934 /* Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
+		D17E0E402DB9427800F8D934 /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
+		D17E0E802DB97A6900F8D934 /* ReusableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableCell.swift; sourceTree = "<group>"; };
 		D1F8FAF92C9DDA2D000FCF08 /* RozetkaPay.Example.UIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RozetkaPay.Example.UIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1F8FAFC2C9DDA2D000FCF08 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D1F8FAFE2C9DDA2D000FCF08 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -71,9 +85,11 @@
 		D11AF5DC2CA9E815006C9CA0 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				D17E0E802DB97A6900F8D934 /* ReusableCell.swift */,
 				D11AF5DD2CA9E843006C9CA0 /* LoggerExtensions.swift */,
 				D11AF5DF2CA9E85F006C9CA0 /* NumberUtils.swift */,
 				D10190152CAC17FC00BAAF8D /* UINavigationBarExtensions.swift */,
+				D17E0E402DB9427800F8D934 /* UIViewControllerExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -90,6 +106,7 @@
 		D11AF5E62CA9E8C5006C9CA0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D17E0E382DB93C7A00F8D934 /* AlertItem.swift */,
 				D11AF5E72CA9E8D1006C9CA0 /* CardToken.swift */,
 				D11AF5E92CA9E8ED006C9CA0 /* Product.swift */,
 				D11AF5EB2CA9E901006C9CA0 /* PaymentSystem.swift */,
@@ -109,6 +126,7 @@
 		D11AF5EE2CA9E9F0006C9CA0 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D17E0E3C2DB93E6600F8D934 /* CustomAlert */,
 				D11AF5F52CA9EAC3006C9CA0 /* Cells */,
 				D11AF5F82CA9EB0F006C9CA0 /* CardsListView.swift */,
 				D11AF5FA2CA9F202006C9CA0 /* ContentViewController.swift */,
@@ -124,6 +142,32 @@
 				D101901B2CAC5C9100BAAF8D /* CartItemCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		D17E0E332DB939BB00F8D934 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D1F8FB052C9DDA2F000FCF08 /* Assets.xcassets */,
+				D17E0E342DB93A0D00F8D934 /* Localizable.xcstrings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		D17E0E3C2DB93E6600F8D934 /* CustomAlert */ = {
+			isa = PBXGroup;
+			children = (
+				D17E0E362DB93C5800F8D934 /* CustomAlertView.swift */,
+				D17E0E3A2DB93E5C00F8D934 /* CustomAlertViewController.swift */,
+			);
+			path = CustomAlert;
+			sourceTree = "<group>";
+		};
+		D17E0E3D2DB93EB000F8D934 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				D17E0E3E2DB93EBC00F8D934 /* Localization.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		D1F8FAF02C9DDA2D000FCF08 = {
@@ -145,6 +189,7 @@
 		D1F8FAFB2C9DDA2D000FCF08 /* RozetkaPay.Example.UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				D17E0E3D2DB93EB000F8D934 /* Services */,
 				D11AF5E12CA9E877006C9CA0 /* Config */,
 				D11AF5E62CA9E8C5006C9CA0 /* Model */,
 				D11AF5EE2CA9E9F0006C9CA0 /* View */,
@@ -153,7 +198,7 @@
 				D1F8FB162C9DE6DA000FCF08 /* RozetkaPay.Example.UIKit.entitlements */,
 				D1F8FAFC2C9DDA2D000FCF08 /* AppDelegate.swift */,
 				D1F8FAFE2C9DDA2D000FCF08 /* SceneDelegate.swift */,
-				D1F8FB052C9DDA2F000FCF08 /* Assets.xcassets */,
+				D17E0E332DB939BB00F8D934 /* Resources */,
 				D1F8FB072C9DDA2F000FCF08 /* LaunchScreen.storyboard */,
 				D1F8FB0A2C9DDA2F000FCF08 /* Info.plist */,
 			);
@@ -227,6 +272,7 @@
 			files = (
 				D1F8FB062C9DDA2F000FCF08 /* Assets.xcassets in Resources */,
 				D1F8FB092C9DDA2F000FCF08 /* Base in Resources */,
+				D17E0E352DB93A0D00F8D934 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,18 +285,24 @@
 			files = (
 				D10190182CAC5BD000BAAF8D /* CartView.swift in Sources */,
 				D11AF5E32CA9E886006C9CA0 /* Credentials.swift in Sources */,
+				D17E0E3F2DB93EBC00F8D934 /* Localization.swift in Sources */,
 				D10190162CAC17FC00BAAF8D /* UINavigationBarExtensions.swift in Sources */,
 				D11AF5EA2CA9E8ED006C9CA0 /* Product.swift in Sources */,
 				D101901A2CAC5BE600BAAF8D /* CartViewModel.swift in Sources */,
 				D11AF5F02CA9EA12006C9CA0 /* CardsViewModel.swift in Sources */,
 				D11AF5EC2CA9E901006C9CA0 /* PaymentSystem.swift in Sources */,
+				D17E0E812DB97A6900F8D934 /* ReusableCell.swift in Sources */,
 				D11AF5E02CA9E85F006C9CA0 /* NumberUtils.swift in Sources */,
 				D11AF5FB2CA9F202006C9CA0 /* ContentViewController.swift in Sources */,
 				D11AF5E52CA9E89F006C9CA0 /* Config.swift in Sources */,
 				D11AF5DE2CA9E843006C9CA0 /* LoggerExtensions.swift in Sources */,
+				D17E0E412DB9427800F8D934 /* UIViewControllerExtensions.swift in Sources */,
 				D11AF5E82CA9E8D1006C9CA0 /* CardToken.swift in Sources */,
+				D17E0E392DB93C7A00F8D934 /* AlertItem.swift in Sources */,
+				D17E0E372DB93C5800F8D934 /* CustomAlertView.swift in Sources */,
 				D1F8FAFD2C9DDA2D000FCF08 /* AppDelegate.swift in Sources */,
 				D11AF5F92CA9EB0F006C9CA0 /* CardsListView.swift in Sources */,
+				D17E0E3B2DB93E5C00F8D934 /* CustomAlertViewController.swift in Sources */,
 				D101901C2CAC5C9100BAAF8D /* CartItemCell.swift in Sources */,
 				D1F8FAFF2C9DDA2D000FCF08 /* SceneDelegate.swift in Sources */,
 				D11AF5F72CA9EACB006C9CA0 /* CardCell.swift in Sources */,
@@ -330,6 +382,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -386,6 +439,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -396,9 +450,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = RozetkaPay.Example.UIKit/RozetkaPay.Example.UIKit.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = JVAX7U4FD5;
+				DEVELOPMENT_TEAM = 4JJF7F8G8L;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RozetkaPay.Example.UIKit/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = RozetkaPay.Example.UIkit;
@@ -413,8 +468,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.rozetkapay.RozetkaPay-Example-UIKit-Bars";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.rozetkapay.RozetkaPay.Example-UIKit";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -431,9 +487,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = RozetkaPay.Example.UIKit/RozetkaPay.Example.UIKit.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = JVAX7U4FD5;
+				DEVELOPMENT_TEAM = 4JJF7F8G8L;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RozetkaPay.Example.UIKit/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = RozetkaPay.Example.UIkit;
@@ -448,8 +505,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.rozetkapay.RozetkaPay-Example-UIKit-Bars";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.rozetkapay.RozetkaPay.Example-UIKit";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

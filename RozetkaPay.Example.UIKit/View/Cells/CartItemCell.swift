@@ -7,15 +7,63 @@
 
 import UIKit
 
-class CartItemCell: UITableViewCell {
+class CartItemCell: UITableViewCell, ReusableCell {
     
-    private let itemImageView = UIImageView()
-    private let itemNameLabel = UILabel()
-    private let itemQuantityLabel = UILabel()
-    private let itemPriceLabel = UILabel()
+    // MARK: - UI
+    private lazy var containerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .secondarySystemGroupedBackground
+        view.layer.cornerRadius = 12
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.separator.cgColor
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
+    private lazy var itemImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.layer.cornerRadius = 8
+        imageView.clipsToBounds = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    private lazy var itemNameLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        return label
+    }()
+    
+    private lazy var itemQuantityLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.textColor = .gray
+        return label
+    }()
+    
+    private lazy var itemPriceLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.textColor = .systemGreen
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private lazy var infoStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [itemNameLabel, itemQuantityLabel])
+        stack.axis = .vertical
+        stack.alignment = .leading
+        stack.spacing = 2
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+    
+    // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        backgroundColor = .clear
+        selectionStyle = .none
         setupUI()
     }
     
@@ -23,41 +71,33 @@ class CartItemCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - UI Setup
     private func setupUI() {
-        itemImageView.translatesAutoresizingMaskIntoConstraints = false
-        itemImageView.contentMode = .scaleAspectFit
-        itemImageView.layer.cornerRadius = 8
-        itemImageView.clipsToBounds = true
-        contentView.addSubview(itemImageView)
-        
-        itemNameLabel.font = UIFont.boldSystemFont(ofSize: 16)
-        itemQuantityLabel.font = UIFont.systemFont(ofSize: 14)
-        itemQuantityLabel.textColor = .gray
-        itemPriceLabel.font = UIFont.systemFont(ofSize: 16)
-        itemPriceLabel.textColor = .systemGreen
-        let stackView = UIStackView(arrangedSubviews: [itemNameLabel, itemQuantityLabel])
-        stackView.axis = .vertical
-        stackView.alignment = .leading
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(stackView)
-        
-        itemPriceLabel.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(itemPriceLabel)
+        contentView.addSubview(containerView)
+        containerView.addSubview(itemImageView)
+        containerView.addSubview(infoStack)
+        containerView.addSubview(itemPriceLabel)
         
         NSLayoutConstraint.activate([
-            itemImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            itemImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),
+            containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4),
+            containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            
+            itemImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 12),
+            itemImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
             itemImageView.widthAnchor.constraint(equalToConstant: 50),
             itemImageView.heightAnchor.constraint(equalToConstant: 50),
             
-            stackView.leadingAnchor.constraint(equalTo: itemImageView.trailingAnchor, constant: 16),
-            stackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            infoStack.leadingAnchor.constraint(equalTo: itemImageView.trailingAnchor, constant: 12),
+            infoStack.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
             
-            itemPriceLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            itemPriceLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+            itemPriceLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -12),
+            itemPriceLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor)
         ])
     }
     
+    // MARK: - Public
     func configure(with item: Product) {
         itemImageView.image = UIImage(named: item.imageName)
         itemNameLabel.text = item.name

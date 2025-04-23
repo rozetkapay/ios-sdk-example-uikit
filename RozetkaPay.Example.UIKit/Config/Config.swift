@@ -11,5 +11,6 @@ struct Config {
     static let defaultCurrencyCode = "UAH"
     static let exampleCallbackUrl = "https://example.com/callback"
     static var decimalSeparator: String = "."
+    static let buttonCornerRadius: CGFloat = 16
 }
 

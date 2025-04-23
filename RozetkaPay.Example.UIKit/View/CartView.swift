@@ -12,73 +12,91 @@ import SwiftUI
 
 class CartViewController: UIViewController {
 
-    //MARK: - Constants
-    private enum Constants {
-        static let buttonCornerRadius: CGFloat = 16
-    }
-
     //MARK: - ViewModel
-    var viewModel: CartViewModel!
+    private var viewModel: CartViewModel!
 
     //MARK: - UI
+    private lazy var mainStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [
+            titleLable,
+            tableView,
+            stackBottom
+        ])
+        stack.axis = .vertical
+        stack.alignment = .fill
+        stack.spacing = 16
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+    
+    private lazy var titleLable: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.label
+        label.text = Localization.cart_title.description
+        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     private lazy var tableView: UITableView = {
         let list = UITableView()
         list.delegate = self
         list.dataSource = self
-        list.register(CartItemCell.self, forCellReuseIdentifier: "CartItemCell")
+        list.register(CartItemCell.self, forCellReuseIdentifier: CartItemCell.reuseIdentifier)
         list.translatesAutoresizingMaskIntoConstraints = false
+        list.separatorStyle = .none
         return list
     }()
 
     private lazy var checkoutButton: UIButton = {
-        let btn = UIButton(type: .system)
-        btn.setTitle("Checkout", for: .normal)
-        btn.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        btn.backgroundColor = .systemGreen
-        btn.setTitleColor(.white, for: .normal)
-        btn.layer.cornerRadius = Constants.buttonCornerRadius
-        btn.translatesAutoresizingMaskIntoConstraints = false
+        let button = UIButton(type: .system)
+        button.setTitle(Localization.cart_checkout_button_title.description, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        button.backgroundColor = .systemGreen
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = Config.buttonCornerRadius
+        button.translatesAutoresizingMaskIntoConstraints = false
         let action = UIAction { [weak self] _ in
             self?.didTapCheckoutButton()
         }
-        btn.addAction(action, for: .primaryActionTriggered)
-        return btn
+        button.addAction(action, for: .primaryActionTriggered)
+        return button
     }()
 
     private lazy var totalLabel: UILabel = {
-        let lbl = UILabel()
-        lbl.textColor = UIColor.label
-        lbl.text = "Total:"
-        lbl.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        lbl.translatesAutoresizingMaskIntoConstraints = false
-        return lbl
+        let label = UILabel()
+        label.textColor = UIColor.label
+        label.text = Localization.cart_total_title.description
+        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
 
     private lazy var totalAmountLabel: UILabel = {
-        let lbl = UILabel()
-        lbl.text = String(format: "%.2f", viewModel.totalPrice)
-        lbl.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        lbl.textColor = .systemGreen
-        lbl.translatesAutoresizingMaskIntoConstraints = false
-        return lbl
+        let label = UILabel()
+        label.text = String(format: "%.2f", viewModel.totalPrice)
+        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        label.textColor = .systemGreen
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
 
     private lazy var shipmentLabel: UILabel = {
-        let lbl = UILabel()
-        lbl.text = "Shipment:"
-        lbl.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        lbl.textColor = UIColor.label
-        lbl.translatesAutoresizingMaskIntoConstraints = false
-        return lbl
+        let label = UILabel()
+        label.text = Localization.cart_shipment_title.description
+        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        label.textColor = UIColor.label
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
 
     private lazy var shipmentInfoLabel: UILabel = {
-        let lbl = UILabel()
-        lbl.text = viewModel.shipment
-        lbl.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        lbl.textColor = UIColor.label
-        lbl.translatesAutoresizingMaskIntoConstraints = false
-        return lbl
+        let label = UILabel()
+        label.text = viewModel.shipment
+        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        label.textColor = UIColor.label
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
 
     private lazy var stackLable: UIStackView = {
@@ -140,9 +158,17 @@ class CartViewController: UIViewController {
         setupUI()
     }
 
-    //MARK - Methods
-    private func setupUI() {
-        title = "Your cart"
+    //MARK: - Methods
+    @objc private func didTapBackButton() {
+        self.navigationController?.popToRootViewController(animated: true)
+    }
+}
+
+//MARK: - Private Methods
+private extension CartViewController {
+    
+    func setupUI() {
+        title = Localization.cart_navigation_bar_title.description
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "chevron.left"),
             style: .plain,
@@ -151,37 +177,34 @@ class CartViewController: UIViewController {
         )
         view.backgroundColor = UIColor.systemBackground
 
-        view.addSubview(tableView)
-        view.addSubview(stackBottom)
-
+        view.addSubview(mainStack)
+    
         setupLayouts()
     }
 
-    private func setupLayouts() {
+    func setupLayouts() {
         NSLayoutConstraint.activate([
 
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            tableView.bottomAnchor.constraint(equalTo: stackBottom.topAnchor, constant: -10),
+            mainStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: 20),
+            mainStack.leftAnchor.constraint(equalTo: view.leftAnchor),
+            mainStack.rightAnchor.constraint(equalTo: view.rightAnchor),
+            mainStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
 
+            titleLable.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
+            titleLable.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
+            
             stackBottom.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
             stackBottom.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
-            stackBottom.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-
+            
             checkoutButton.heightAnchor.constraint(equalToConstant: 52),
             stackLable.widthAnchor.constraint(equalTo: stackBottom.widthAnchor)
         ])
     }
-
-    @objc private func didTapBackButton() {
-        self.navigationController?.popToRootViewController(animated: true)
-    }
     
-    @objc private func didTapCheckoutButton() {
+    func didTapCheckoutButton() {
         let payView = RozetkaPaySDK.PayView(
             parameters: PaymentParameters(
-                client: ClientAuthParameters(token: Credentials.DEV_AUTH_TOKEN),
+                client: viewModel.clientParameters,
                 viewParameters: PaymentViewParameters(cardNameField: .none, emailField: .none, cardholderNameField: .none),
                 themeConfigurator: RozetkaPayThemeConfigurator(),
                 amountParameters: PaymentParameters.AmountParameters(
@@ -205,31 +228,75 @@ class CartViewController: UIViewController {
         hostingController.modalPresentationStyle = .fullScreen
         present(hostingController, animated: true, completion: nil)
     }
-}
-
-extension CartViewController {
     
-    private func handleResult(_ result: PaymentResult) {
+     func handleResult(_ result: PaymentResult) {
+        let alertItem: AlertItem
+        
         switch result {
-        case let .pending(orderId, paymentId):
-            Logger.payment.info("Payment pending \(orderId) \(paymentId)")
+        case let .pending(orderId, paymentId, message, error):
+            alertItem = AlertItem(
+                type: .info,
+                title: "Pending",
+                message: "Payment \(paymentId ?? "Whithout paymentId") is pending. Order ID: \(orderId)"
+            )
+            Logger.payment.info(
+                "Payment \(paymentId ?? "Whithout paymentId" ) is pending. Order ID: \(orderId). Message: \(message ?? "No message"). Error: \(error?.localizedDescription ?? "No error description")"
+            )
         case let .complete(orderId, paymentId):
-            Logger.payment.info("Payment complete \(orderId) \(paymentId)")
-        case let .failed(paymentId, message, errorDescription):
-            if let message = message, !message.isEmpty {
-                Logger.payment.warning(
-                    "⚠️ WARNING: An error with message \"\(message)\", paymentId: \"\(paymentId ?? "")\". Please try again. ⚠️"
+            alertItem = AlertItem(
+                type: .success,
+                title: "Successful",
+                message: "Payment \(paymentId) was successful. Order ID: \(orderId)"
+            )
+            Logger.payment.info(
+                "Payment \(paymentId) was successful. Order ID: \(orderId)"
+            )
+        case let .failed(error):
+            if error.code == .transactionAlreadyPaid {
+                alertItem = AlertItem(
+                    type: .warning,
+                    title: "Failed",
+                    message: "Order ID: \(viewModel.orderId) already paid. "
                 )
+                Logger.payment.info(
+                    "⚠️ WARNING: Payment \(error.paymentId ?? "Whithout paymentId" ) already paid. Order ID: \(self.viewModel.orderId)."
+                )
+                return
+            }
+            
+            if let message = error.message, !message.isEmpty {
+                alertItem = AlertItem(
+                    type: .error,
+                    title: "Failed",
+                    message: "Payment \(error.paymentId ?? "") failed with message: \(message)."
+                )
+                var errorText =  "⚠️ WARNING: An error with message \"\(message)\", paymentId: \"\(error.paymentId ?? "")\"."
+                
+  
+                errorText += " errorDescription: \(error.localizedDescription)."
+                errorText += "Please try again. ⚠️"
+                Logger.payment.warning("\(errorText)")
             } else {
+                alertItem = AlertItem(
+                    type: .error,
+                    title: "Failed",
+                    message: "An unknown error occurred with payment \(error.paymentId ?? ""). Please try again."
+                )
                 Logger.payment.warning(
-                    "⚠️ WARNING: An error occurred during payment process. Please try again. ⚠️"
+                    "⚠️ WARNING: An error occurred during payment process. paymentId: \(error.paymentId ?? ""). Please try again. ⚠️"
                 )
             }
         case .cancelled:
-            Logger.payment.info("Payment was cancelled")
+            alertItem = AlertItem(
+                type: .info,
+                title: "Cancelled",
+                message: "Payment was cancelled manually by the user."
+            )
+            Logger.payment.info("Payment was cancelled manually by user")
         }
+        
+        self.showCustomAlert(item: alertItem)
     }
-    
 }
 
 // MARK: - UITableViewDataSource
@@ -240,7 +307,12 @@ extension CartViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CartItemCell", for: indexPath) as! CartItemCell
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: CartItemCell.reuseIdentifier,
+            for: indexPath
+        ) as? CartItemCell else {
+            return UITableViewCell()
+        }
         let item = viewModel.items[indexPath.row]
         cell.configure(with: item)
         return cell
