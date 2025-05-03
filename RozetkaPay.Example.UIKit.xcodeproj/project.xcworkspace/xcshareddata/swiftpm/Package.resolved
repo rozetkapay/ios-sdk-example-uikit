@@ -1,13 +1,13 @@
 {
-  "originHash" : "8068d0a42d619e2ff038f510e1b0778aa955961b52c17be0c125940b9a828bbf",
+  "originHash" : "c245a2d1d6fe05069cc99b80e4c5e0ff4c017cd70e3be15559ecb1898b7a5568",
   "pins" : [
     {
-      "identity" : "rozetkapay.sdk-ios",
+      "identity" : "ios-sdk",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/casiocompa/RozetkaPay.SDK-iOS.git",
+      "location" : "https://github.com/rozetkapay/ios-sdk",
       "state" : {
         "branch" : "main",
-        "revision" : "6b8a0737e1d41479d7aae7ee3e62cb5ea9ebdd52"
+        "revision" : "a293c1f0508de5e6784716ba71b33ff118e3abd9"
       }
     }
   ],

@@ -29,12 +29,12 @@
 		D17E0E3F2DB93EBC00F8D934 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17E0E3E2DB93EBC00F8D934 /* Localization.swift */; };
 		D17E0E412DB9427800F8D934 /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17E0E402DB9427800F8D934 /* UIViewControllerExtensions.swift */; };
 		D17E0E812DB97A6900F8D934 /* ReusableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17E0E802DB97A6900F8D934 /* ReusableCell.swift */; };
+		D17E116A2DC6539F00F8D934 /* RozetkaPaySDK in Frameworks */ = {isa = PBXBuildFile; productRef = D17E11692DC6539F00F8D934 /* RozetkaPaySDK */; };
 		D1F8FAFD2C9DDA2D000FCF08 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F8FAFC2C9DDA2D000FCF08 /* AppDelegate.swift */; };
 		D1F8FAFF2C9DDA2D000FCF08 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F8FAFE2C9DDA2D000FCF08 /* SceneDelegate.swift */; };
 		D1F8FB062C9DDA2F000FCF08 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D1F8FB052C9DDA2F000FCF08 /* Assets.xcassets */; };
 		D1F8FB092C9DDA2F000FCF08 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = D1F8FB082C9DDA2F000FCF08 /* Base */; };
 		D1F8FB122C9DDFD1000FCF08 /* RozetkaPaySDK in Frameworks */ = {isa = PBXBuildFile; productRef = D1F8FB112C9DDFD1000FCF08 /* RozetkaPaySDK */; };
-		D1F8FB152C9DE5C5000FCF08 /* RozetkaPaySDK in Frameworks */ = {isa = PBXBuildFile; productRef = D1F8FB142C9DE5C5000FCF08 /* RozetkaPaySDK */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,7 +75,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D1F8FB122C9DDFD1000FCF08 /* RozetkaPaySDK in Frameworks */,
-				D1F8FB152C9DE5C5000FCF08 /* RozetkaPaySDK in Frameworks */,
+				D17E116A2DC6539F00F8D934 /* RozetkaPaySDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,7 +223,7 @@
 			name = RozetkaPay.Example.UIKit;
 			packageProductDependencies = (
 				D1F8FB112C9DDFD1000FCF08 /* RozetkaPaySDK */,
-				D1F8FB142C9DE5C5000FCF08 /* RozetkaPaySDK */,
+				D17E11692DC6539F00F8D934 /* RozetkaPaySDK */,
 			);
 			productName = RozetkaPay.Example.UIKit;
 			productReference = D1F8FAF92C9DDA2D000FCF08 /* RozetkaPay.Example.UIKit.app */;
@@ -254,7 +254,7 @@
 			);
 			mainGroup = D1F8FAF02C9DDA2D000FCF08;
 			packageReferences = (
-				D1F8FB132C9DE5C5000FCF08 /* XCRemoteSwiftPackageReference "RozetkaPay.SDK-iOS" */,
+				D17E11682DC6539F00F8D934 /* XCRemoteSwiftPackageReference "ios-sdk" */,
 			);
 			productRefGroup = D1F8FAFA2C9DDA2D000FCF08 /* Products */;
 			projectDirPath = "";
@@ -542,9 +542,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		D1F8FB132C9DE5C5000FCF08 /* XCRemoteSwiftPackageReference "RozetkaPay.SDK-iOS" */ = {
+		D17E11682DC6539F00F8D934 /* XCRemoteSwiftPackageReference "ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/casiocompa/RozetkaPay.SDK-iOS.git";
+			repositoryURL = "https://github.com/rozetkapay/ios-sdk";
 			requirement = {
 				branch = main;
 				kind = branch;
@@ -553,13 +553,13 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D1F8FB112C9DDFD1000FCF08 /* RozetkaPaySDK */ = {
+		D17E11692DC6539F00F8D934 /* RozetkaPaySDK */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = D17E11682DC6539F00F8D934 /* XCRemoteSwiftPackageReference "ios-sdk" */;
 			productName = RozetkaPaySDK;
 		};
-		D1F8FB142C9DE5C5000FCF08 /* RozetkaPaySDK */ = {
+		D1F8FB112C9DDFD1000FCF08 /* RozetkaPaySDK */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D1F8FB132C9DE5C5000FCF08 /* XCRemoteSwiftPackageReference "RozetkaPay.SDK-iOS" */;
 			productName = RozetkaPaySDK;
 		};
 /* End XCSwiftPackageProductDependency section */
