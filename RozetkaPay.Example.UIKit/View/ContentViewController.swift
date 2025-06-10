@@ -41,9 +41,28 @@ final class ContentViewController: UIViewController {
         button.addAction(action, for: .primaryActionTriggered)
         return button
     }()
+    
+    private lazy var batchPayButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle(Localization.main_batch_pay_button_title.description, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        button.backgroundColor = .systemBlue
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = Config.buttonCornerRadius
+        button.translatesAutoresizingMaskIntoConstraints = false
+        let action = UIAction { [weak self] _ in
+            self?.didTapBatchPayButton()
+        }
+        button.addAction(action, for: .primaryActionTriggered)
+        return button
+    }()
 
     private lazy var stackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [cardsButton, payButton])
+        let stack = UIStackView(arrangedSubviews: [
+            cardsButton,
+            payButton,
+            batchPayButton
+        ])
         stack.axis = .vertical
         stack.alignment = .fill
         stack.distribution = .fillEqually
@@ -74,22 +93,20 @@ final class ContentViewController: UIViewController {
     }
 
     private func didTapCardsButton() {
-        let vc = CardsListViewController(items: CardsViewModel.mocData)
+        let vc = CardsListViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
 
     private func didTapPayButton() {
-        let vc = CartViewController(
-            orderId: generateOrderId(),
-            items: CartViewModel.mocData
-        )
+        let vc = CartViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    
-    private func generateOrderId() -> String {
-        return "order-apple-\(Int(Date().timeIntervalSince1970 * 1000))"
+    private func didTapBatchPayButton() {
+        let vc = BatchCartViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
+    
 }
 
 @available(iOS 17, *)
