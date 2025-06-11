@@ -170,7 +170,7 @@ class BatchCartViewController: UIViewController {
     ) {
         self.viewModel = BatchCartViewModel(
             externalId: externalId ?? BatchCartViewModel.generateExternalId(),
-            orders: orders ?? BatchCartViewModel.mocData
+            orders: orders ?? BatchCartViewModel.generateMocData()
         )
         super.init(nibName: nil, bundle: nil)
     }
@@ -396,8 +396,8 @@ extension BatchCartViewController: UITableViewDelegate, UITableViewDataSource {
 @available(iOS 17, *)
 #Preview {
     let vc =  BatchCartViewController(
-        externalId: "test",
-        orders: BatchCartViewModel.mocData
+        externalId: BatchCartViewModel.generateExternalId(),
+        orders: BatchCartViewModel.generateMocData()
     )
     return vc
 }

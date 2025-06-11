@@ -166,7 +166,7 @@ class CartViewController: UIViewController {
     ) {
         self.viewModel = CartViewModel(
             orderId: orderId ?? CartViewModel.generateOrderId(),
-            items: items ?? CartViewModel.mocData
+            items: items ?? CartViewModel.generateMocData()
         )
         super.init(nibName: nil, bundle: nil)
     }
@@ -367,6 +367,9 @@ extension CartViewController: UITableViewDelegate, UITableViewDataSource {
 
 @available(iOS 17, *)
 #Preview {
-    let vc =  CartViewController(orderId: "test", items: CartViewModel.mocData)
+    let vc =  CartViewController(
+        orderId: CartViewModel.generateOrderId(),
+        items: CartViewModel.generateMocData()
+    )
     return vc
 }
