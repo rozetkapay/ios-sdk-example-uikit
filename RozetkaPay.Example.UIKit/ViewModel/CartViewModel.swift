@@ -68,7 +68,7 @@ final class CartViewModel {
     }
     
     //MARK: - MocData
-    static var mocData: [Product] = {
+    static func generateMocData() -> [Product] {
         return [
             Product(
                 category: "category1",
@@ -111,7 +111,7 @@ final class CartViewModel {
                 url: "url"
             )
         ]
-    }()
+    }
 }
 
 //MARK: - Private methods

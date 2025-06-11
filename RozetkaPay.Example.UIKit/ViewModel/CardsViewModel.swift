@@ -27,7 +27,7 @@ class CardsViewModel {
     }
     
     //MARK: - MocData
-    static var mocData: [CardToken] = {
+    static func generateMocData() -> [CardToken] {
         return [
             CardToken(
                 paymentSystem: .visa,
@@ -54,7 +54,7 @@ class CardsViewModel {
                 cardToken: "token1"
             ),
         ]
-    }()
+    }
     
     //MARK: - Methods
     func add(item: CardToken) {
