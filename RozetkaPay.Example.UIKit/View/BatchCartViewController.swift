@@ -259,7 +259,6 @@ private extension BatchCartViewController {
                 ),
                 externalId: viewModel.externalId,
                 callbackUrl: Config.exampleCallbackUrl,
-                resultUrl: Config.exampleResultUrl,
                 orders: viewModel.orders.mapToBatchOrder()
             ),
             onResultCallback: { [weak self] result in
