@@ -13,7 +13,7 @@ import SwiftUI
 class CardsListViewController: UIViewController {
     
     //MARK: - ViewModel
-    var viewModel: CardsViewModel!
+    private var viewModel: CardsViewModel!
     
     //MARK: - UI
     private lazy var mainStack: UIStackView = {
@@ -50,7 +50,7 @@ class CardsListViewController: UIViewController {
     private lazy var addButton: UIButton = {
         var configuration = UIButton.Configuration.filled()
         configuration.title = Localization.cards_add_new_card_button_title.description
-        configuration.image = UIImage(systemName: "plus")
+        configuration.image = Images.plus.image()
         configuration.imagePadding = 10
         configuration.baseBackgroundColor = .systemGreen
         configuration.baseForegroundColor = .white
@@ -72,8 +72,12 @@ class CardsListViewController: UIViewController {
     }()
     
     //MARK: - Inits
-    init(items: [CardToken]) {
-        self.viewModel = CardsViewModel(items: items)
+    init(
+        items: [CardToken]? = nil
+    ) {
+        self.viewModel = CardsViewModel(
+            items: items ??  CardsViewModel.generateMocData()
+        )
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -236,6 +240,6 @@ extension CardsListViewController: UITableViewDelegate, UITableViewDataSource {
 
 @available(iOS 17, *)
 #Preview {
-    let vc = CardsListViewController(items: CardsViewModel.mocData)
+    let vc = CardsListViewController(items: CardsViewModel.generateMocData())
     return vc
 }

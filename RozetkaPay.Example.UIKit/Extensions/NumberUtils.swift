@@ -19,6 +19,17 @@ extension Double {
         return formatter.string(for: self) ?? self.description
     }
     
+    func currencyString(currencyCode: String) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.currencyCode = currencyCode
+        formatter.maximumFractionDigits = 2
+        formatter.minimumFractionDigits = 2
+        formatter.groupingSeparator = " "
+        formatter.decimalSeparator = Config.decimalSeparator
+        return formatter.string(from: NSNumber(value: self)) ?? "\(self)"
+    }
+    
     func convertToCoinsAmount() -> Int64 {
         let amount = Double(self * 100).nextUp
         return Int64(amount)
@@ -35,5 +46,8 @@ extension Int64 {
         return (Double(self)/100.0).currencyFormat()
     }
     
+    func toString() -> String {
+        return self.description
+    }
 }
 

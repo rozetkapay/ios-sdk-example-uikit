@@ -1,8 +1,8 @@
 //
-//  CartView.swift
+//  CartViewController.swift
 //  RozetkaPay.Example.UIKit
 //
-//  Created by Ruslan Kasian Dev on 01.10.2024.
+//  Created by Ruslan Kasian Dev on 30.05.2025.
 //
 
 import UIKit
@@ -11,10 +11,10 @@ import OSLog
 import SwiftUI
 
 class CartViewController: UIViewController {
-
+    
     //MARK: - ViewModel
     private var viewModel: CartViewModel!
-
+    
     //MARK: - UI
     private lazy var mainStack: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [
@@ -45,9 +45,12 @@ class CartViewController: UIViewController {
         list.register(CartItemCell.self, forCellReuseIdentifier: CartItemCell.reuseIdentifier)
         list.translatesAutoresizingMaskIntoConstraints = false
         list.separatorStyle = .none
+        list.estimatedRowHeight = 80
+        list.rowHeight = UITableView.automaticDimension
+        list.showsVerticalScrollIndicator = false
         return list
     }()
-
+    
     private lazy var checkoutButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle(Localization.cart_checkout_button_title.description, for: .normal)
@@ -62,7 +65,7 @@ class CartViewController: UIViewController {
         button.addAction(action, for: .primaryActionTriggered)
         return button
     }()
-
+    
     private lazy var totalLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.label
@@ -71,16 +74,16 @@ class CartViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     private lazy var totalAmountLabel: UILabel = {
         let label = UILabel()
-        label.text = String(format: "%.2f", viewModel.totalPrice)
+        label.text = String(format: "%.2f", viewModel.totalAmount)
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         label.textColor = .systemGreen
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     private lazy var shipmentLabel: UILabel = {
         let label = UILabel()
         label.text = Localization.cart_shipment_title.description
@@ -89,7 +92,7 @@ class CartViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     private lazy var shipmentInfoLabel: UILabel = {
         let label = UILabel()
         label.text = viewModel.shipment
@@ -98,7 +101,7 @@ class CartViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     private lazy var stackLable: UIStackView = {
         let stackTotal = UIStackView(arrangedSubviews: [
             totalLabel,
@@ -108,7 +111,7 @@ class CartViewController: UIViewController {
         stackTotal.distribution = .equalSpacing
         stackTotal.alignment = .fill
         stackTotal.translatesAutoresizingMaskIntoConstraints = false
-
+        
         let stackShipment = UIStackView(arrangedSubviews: [
             shipmentLabel,
             shipmentInfoLabel
@@ -117,7 +120,7 @@ class CartViewController: UIViewController {
         stackShipment.distribution = .equalSpacing
         stackShipment.alignment = .fill
         stackShipment.translatesAutoresizingMaskIntoConstraints = false
-
+        
         let stack = UIStackView(arrangedSubviews: [
             stackShipment,
             stackTotal
@@ -128,11 +131,25 @@ class CartViewController: UIViewController {
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
-
+    
+    private lazy var checkBox: CheckBoxDataView = {
+        let checkBox = CheckBoxDataView(
+            title: Localization.batch_cart_use_tokenized_card.description,
+            value: viewModel.isNeedToUseTokenizedCard,
+            colorOn: .systemGreen,
+            colorOff: .gray,
+            isSelected: { [weak self] isSelected in
+                self?.handleCheckBoxChanged(isSelected)
+            }
+        )
+        checkBox.translatesAutoresizingMaskIntoConstraints = false
+        return checkBox
+    }()
+    
     private lazy var stackBottom: UIStackView = {
-
         let stack = UIStackView(arrangedSubviews: [
             stackLable,
+            checkBox,
             checkoutButton
         ])
         stack.axis = .vertical
@@ -141,23 +158,29 @@ class CartViewController: UIViewController {
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
-
+    
     //MARK: - Inits
-    init(orderId: String, items: [Product]) {
-        self.viewModel = CartViewModel(orderId: orderId, items: items)
+    init(
+        orderId: String? = nil,
+        items: [Product]? = nil
+    ) {
+        self.viewModel = CartViewModel(
+            orderId: orderId ?? CartViewModel.generateOrderId(),
+            items: items ?? CartViewModel.generateMocData()
+        )
         super.init(nibName: nil, bundle: nil)
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
     }
-
+    
     //MARK: - Methods
     @objc private func didTapBackButton() {
         self.navigationController?.popToRootViewController(animated: true)
@@ -170,26 +193,26 @@ private extension CartViewController {
     func setupUI() {
         title = Localization.cart_navigation_bar_title.description
         navigationItem.leftBarButtonItem = UIBarButtonItem(
-            image: UIImage(systemName: "chevron.left"),
+            image: Images.arrowLeft.image(),
             style: .plain,
             target: self,
             action: #selector(didTapBackButton)
         )
         view.backgroundColor = UIColor.systemBackground
-
+        
         view.addSubview(mainStack)
-    
+        
         setupLayouts()
     }
-
+    
     func setupLayouts() {
         NSLayoutConstraint.activate([
-
+            
             mainStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: 20),
             mainStack.leftAnchor.constraint(equalTo: view.leftAnchor),
             mainStack.rightAnchor.constraint(equalTo: view.rightAnchor),
             mainStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-
+            
             titleLable.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
             titleLable.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
             
@@ -203,21 +226,37 @@ private extension CartViewController {
     
     func didTapCheckoutButton() {
         let payView = RozetkaPaySDK.PayView(
-            parameters: PaymentParameters(
+            paymentParameters: PaymentParameters(
                 client: viewModel.clientParameters,
-                viewParameters: PaymentViewParameters(cardNameField: .none, emailField: .none, cardholderNameField: .none),
                 themeConfigurator: RozetkaPayThemeConfigurator(),
-                amountParameters: PaymentParameters.AmountParameters(
-                    amount: viewModel.totalAmount,
-                    tax: viewModel.totalTax,
-                    total: viewModel.totalPrice,
+                paymentType:
+                    viewModel.isNeedToUseTokenizedCard ?
+                    .singleToken(
+                        SingleTokenPayment(
+                            token: viewModel.testCardToken
+                        )
+                    ) :
+                        .regular(
+                            RegularPayment(
+                                viewParameters: PaymentViewParameters(
+                                    cardNameField: .none,
+                                    emailField: .none,
+                                    cardholderNameField: .none
+                                ),
+                                isAllowTokenization: true,
+                                applePayConfig: viewModel.testApplePayConfig
+                            )
+                        ),
+                amountParameters:  AmountParameters(
+                    amount: viewModel.totalNetAmountInCoins,
+                    tax: viewModel.totalVatAmountInCoins,
+                    total: viewModel.totalAmountInCoins,
                     currencyCode: Config.defaultCurrencyCode
                 ),
-                orderId: viewModel.orderId,
-                callbackUrl: Config.exampleCallbackUrl,
-                isAllowTokenization: true,
-                applePayConfig: viewModel.testApplePayConfig
-            ),
+                externalId: viewModel.orderId,
+                callbackUrl: Config.exampleCallbackUrl
+            )
+            ,
             onResultCallback: { [weak self] result in
                 self?.handleResult(result)
                 self?.dismiss(animated: true, completion: nil)
@@ -229,7 +268,11 @@ private extension CartViewController {
         present(hostingController, animated: true, completion: nil)
     }
     
-     func handleResult(_ result: PaymentResult) {
+    func handleCheckBoxChanged(_ selected: Bool) {
+        viewModel.isNeedToUseTokenizedCard = selected
+    }
+    
+    func handleResult(_ result: PaymentResult) {
         let alertItem: AlertItem
         
         switch result {
@@ -237,20 +280,22 @@ private extension CartViewController {
             alertItem = AlertItem(
                 type: .info,
                 title: "Pending",
-                message: "Payment \(paymentId ?? "Whithout paymentId") is pending. Order ID: \(orderId)"
+                message: "Payment \(paymentId ?? "Without paymentId") is pending. Order ID: \(orderId)"
             )
             Logger.payment.info(
-                "Payment \(paymentId ?? "Whithout paymentId" ) is pending. Order ID: \(orderId). Message: \(message ?? "No message"). Error: \(error?.localizedDescription ?? "No error description")"
+                "Payment \(paymentId ?? "Without paymentId" ) is pending. Order ID: \(orderId). Message: \(message ?? "No message"). Error: \(error?.localizedDescription ?? "No error description")"
             )
-        case let .complete(orderId, paymentId):
+        case let .complete(orderId, paymentId, tokenizedCard):
+            var text = "Payment \(paymentId) was successful. Order ID: \(orderId)"
+            if let tokenizedCard = tokenizedCard {
+                text += "TokenizedCard: \(tokenizedCard.cardInfo?.maskedNumber ?? tokenizedCard.name ?? tokenizedCard.token)"
+            }
             alertItem = AlertItem(
                 type: .success,
                 title: "Successful",
-                message: "Payment \(paymentId) was successful. Order ID: \(orderId)"
+                message: text
             )
-            Logger.payment.info(
-                "Payment \(paymentId) was successful. Order ID: \(orderId)"
-            )
+            Logger.payment.info("\(text)")
         case let .failed(error):
             if error.code == .transactionAlreadyPaid {
                 alertItem = AlertItem(
@@ -259,7 +304,7 @@ private extension CartViewController {
                     message: "Order ID: \(viewModel.orderId) already paid. "
                 )
                 Logger.payment.info(
-                    "⚠️ WARNING: Payment \(error.paymentId ?? "Whithout paymentId" ) already paid. Order ID: \(self.viewModel.orderId)."
+                    "⚠️ WARNING: Payment \(error.paymentId ?? "Without paymentId" ) already paid. Order ID: \(self.viewModel.orderId)."
                 )
                 return
             }
@@ -272,7 +317,7 @@ private extension CartViewController {
                 )
                 var errorText =  "⚠️ WARNING: An error with message \"\(message)\", paymentId: \"\(error.paymentId ?? "")\"."
                 
-  
+                
                 errorText += " errorDescription: \(error.localizedDescription)."
                 errorText += "Please try again. ⚠️"
                 Logger.payment.warning("\(errorText)")
@@ -317,15 +362,14 @@ extension CartViewController: UITableViewDelegate, UITableViewDataSource {
         cell.configure(with: item)
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
-    }
 }
 
 
 @available(iOS 17, *)
 #Preview {
-    let vc =  CartViewController(orderId: "test", items: CartViewModel.mocData)
+    let vc =  CartViewController(
+        orderId: CartViewModel.generateOrderId(),
+        items: CartViewModel.generateMocData()
+    )
     return vc
 }

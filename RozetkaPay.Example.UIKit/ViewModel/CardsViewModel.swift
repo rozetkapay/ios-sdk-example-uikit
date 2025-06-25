@@ -9,17 +9,15 @@ import Foundation
 import RozetkaPaySDK
 
 class CardsViewModel {
-    
-    var items: [CardToken]
-    
+    //MARK: - Credentials
     var clientWidgetParameters = ClientWidgetParameters(
-        widgetKey: Credentials.WIDGET_KEY
+        widgetKey: AppConfiguration.shared.credentials.WIDGET_KEY
     )
     
-    func add(item: CardToken) {
-        items.append(item)
-    }
+    //MARK: - Properties
+    var items: [CardToken]
     
+    //MARK: - Init
     init() {
         self.items = []
     }
@@ -28,28 +26,22 @@ class CardsViewModel {
         self.items = items
     }
     
-    
-    static var mocData: [CardToken] = {
-        
+    //MARK: - MocData
+    static func generateMocData() -> [CardToken] {
         return [
             CardToken(
-                
                 paymentSystem: .visa,
                 name: "Mono Black",
                 maskedNumber: "**** **** **** 1234",
                 cardToken: "token1"
             ),
-            
             CardToken(
-                
                 paymentSystem: .masterCard,
                 name: "Mono White",
                 maskedNumber: "**** **** **** 5858",
                 cardToken: "token1"
             ),
-            
             CardToken(
-                
                 paymentSystem: PaymentSystem.other(name: "ПРОСТІР"),
                 name: "Oschad Пенсійна",
                 maskedNumber: "**** **** **** 9999",
@@ -62,5 +54,10 @@ class CardsViewModel {
                 cardToken: "token1"
             ),
         ]
-    }()
+    }
+    
+    //MARK: - Methods
+    func add(item: CardToken) {
+        items.append(item)
+    }
 }

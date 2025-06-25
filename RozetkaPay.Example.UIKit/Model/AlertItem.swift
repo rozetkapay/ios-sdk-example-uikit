@@ -25,17 +25,17 @@ enum AlertType {
     var color: UIColor {
         switch self {
         case .success:
-            return .green
+            return .systemGreen
         case .error:
-            return .red
+            return .systemRed
         case .info:
-            return .blue
+            return .systemBlue
         case .soon:
-            return .blue
+            return .systemBlue
         case .custom:
             return .white
         case .warning:
-            return .orange
+            return .systemOrange
         }
     }
     
@@ -67,7 +67,7 @@ enum AlertType {
         case .soon:
             return .white
         case .custom:
-            return .green
+            return .systemGreen
         case .warning:
             return .white
         }
