@@ -15,11 +15,21 @@ class CardsListViewController: UIViewController {
     //MARK: - ViewModel
     private var viewModel: CardsViewModel!
     
+    // MARK: - State
+    private var isNeedToSaveTokenizedCard = false {
+        didSet {
+            Logger.tokenizedCard.info(
+                "👀 Checkbox is now \(self.isNeedToSaveTokenizedCard ? "ON" : "OFF")"
+            )
+        }
+    }
+    
     //MARK: - UI
     private lazy var mainStack: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [
             titleLable,
-            tableView
+            tableView,
+            tokenizationContentView
         ])
         stack.axis = .vertical
         stack.alignment = .fill
@@ -71,6 +81,47 @@ class CardsListViewController: UIViewController {
         return button
     }()
     
+    private lazy var tokenizationContentView: UIView = {
+        let formView = RozetkaPaySDK.TokenizationFormView(
+            parameters: TokenizationFormParameters(
+                client: viewModel.clientWidgetParameters,
+                viewParameters: TokenizationFormViewParameters(
+                    cardNameField: .none,
+                    emailField: .none,
+                    cardholderNameField: .none,
+                    isVisibleCardInfoTitle:  true,
+                    isVisibleCardInfoLegalView: true,
+                    stringResources: StringResources(
+                        cardFormTitle: "TEST",
+                        buttonTitle:"buttonTitle TEST"
+                    )
+                ),
+                themeConfigurator: RozetkaPayThemeConfigurator(
+                    mode: .dark,
+                    sizes: RozetkaPayDomainThemeDefaults.sizes(
+                        mainButtonTopPadding: 50
+                    ),
+                    typography: RozetkaPayDomainThemeDefaults.typography(
+                        inputUI: UIFont.systemFont(ofSize: 6, weight: .regular)
+                    )
+                )
+            ),
+            onResultCallback: { [weak self] result in
+                self?.handleResult(result)
+            },
+            stateUICallback: { [weak self] state in
+                self?.handleUIState(state)
+            },
+            cardFormFooterEmbeddedContent: { [weak self] in
+                self?.checkboxView()
+            }
+        )
+        
+        let hostingController = UIHostingController(rootView: formView)
+        hostingController.view.backgroundColor = .clear
+        return hostingController.view
+    }()
+    
     //MARK: - Inits
     init(
         items: [CardToken]? = nil
@@ -115,7 +166,7 @@ private extension CardsListViewController {
         
         setupLayouts()
     }
-        
+    
     private func setupLayouts() {
         NSLayoutConstraint.activate([
             mainStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
@@ -133,56 +184,9 @@ private extension CardsListViewController {
             addButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
-
-    
-    func handleResult(_ result: TokenizationResult) {
-        let alertItem: AlertItem
-        switch result {
-        case .success(let value):
-            alertItem = AlertItem(
-                type: .success,
-                title: "Successful",
-                message: "Tokenization card was successful."
-            )
-            addNewCard(tokenizedCard: value)
-        case .failure(let error):
-            switch error {
-            case let .failed(message, _):
-                if let message = message, !message.isEmpty {
-                    alertItem = AlertItem(
-                        type: .error,
-                        title: "Failed",
-                        message: "Tokenization of card failed with message: \(message)."
-                    )
-                    Logger.tokenizedCard.warning(
-                        "⚠️ WARNING: An error with message \"\(message)\". Please try again. ⚠️"
-                    )
-                } else {
-                    alertItem = AlertItem(
-                        type: .error,
-                        title: "Failed",
-                        message: "An unknown error occurred with card tokenization. Please try again."
-                    )
-                    Logger.tokenizedCard.warning(
-                        "⚠️ WARNING: An error occurred during tokenization process. Please try again. ⚠️"
-                    )
-                }
-            case .cancelled:
-                alertItem = AlertItem(
-                    type: .info,
-                    title: "Cancelled",
-                    message: "Tokenization was cancelled manually by the user."
-                )
-                
-                Logger.tokenizedCard.info("Tokenization was cancelled manually by user")
-            }
-        }
-        
-        self.showCustomAlert(item: alertItem)
-    }
     
     func didTapAddButton() {
-      
+        
         let tokenizationView = RozetkaPaySDK.TokenizationView(
             parameters: TokenizationParameters(
                 client: viewModel.clientWidgetParameters,
@@ -215,6 +219,205 @@ private extension CardsListViewController {
         tableView.reloadData()
     }
     
+    private func checkboxView() -> some View {
+        struct CheckBoxStyle: ToggleStyle {
+            let colorOn: Color
+            let colorOff: Color
+
+            func makeBody(configuration: Configuration) -> some View {
+                Button(action: {
+                    configuration.isOn.toggle()
+                }) {
+                    HStack {
+                        Image(systemName: configuration.isOn ? "checkmark.square.fill" : "square")
+                            .resizable()
+                            .frame(width: 26, height: 26)
+                            .foregroundColor(configuration.isOn ? colorOn : colorOff)
+
+                        configuration.label
+                            .foregroundColor(.primary)
+                            .font(.subheadline)
+                    }
+                }
+            }
+        }
+
+        struct CheckboxWrapperView: View {
+            @State private var isChecked: Bool = false
+            let onValueChanged: (Bool) -> Void
+
+            var body: some View {
+                HStack {
+                    Toggle(isOn: $isChecked) {
+                        Text("Test checkbox text")
+                    }
+                    .toggleStyle(CheckBoxStyle(colorOn: .green, colorOff: .gray))
+                    .onChange(of: isChecked) { newValue in
+                        onValueChanged(newValue)
+                    }
+
+                    Spacer()
+                }
+                .padding(.top, 6)
+            }
+        }
+
+        return CheckboxWrapperView { newValue in
+            self.isNeedToSaveTokenizedCard = newValue
+        }
+    }
+}
+
+//MARK: - Private Methods
+private extension CardsListViewController {
+    func handleResult(_ result: TokenizationResult) {
+        let alertItem: AlertItem
+        
+        switch result {
+        case .complete(let value):
+            alertItem = AlertItem(
+                type: .success,
+                title: "Successful",
+                message: "Tokenization card was successful."
+            )
+            addNewCard(tokenizedCard: value)
+        case .failed(let error):
+            switch error {
+            case let .failed(message, _):
+                if let message = message, !message.isEmpty {
+                    alertItem = AlertItem(
+                        type: .error,
+                        title: "Failed",
+                        message: "Tokenization of card failed with message: \(message)."
+                    )
+                    Logger.tokenizedCard.warning(
+                        "⚠️ WARNING: An error with message \"\(message)\". Please try again. ⚠️"
+                    )
+                } else {
+                    alertItem = AlertItem(
+                        type: .error,
+                        title: "Failed",
+                        message: "An unknown error occurred with card tokenization. Please try again."
+                    )
+                    Logger.tokenizedCard.warning(
+                        "⚠️ WARNING: An error occurred during tokenization process. Please try again. ⚠️"
+                    )
+                }
+            case .cancelled:
+                alertItem = AlertItem(
+                    type: .info,
+                    title: "Cancelled",
+                    message: "Tokenization was cancelled manually by the user."
+                )
+                
+                Logger.tokenizedCard.info(
+                    "🏁 Tokenization was cancelled manually by user"
+                )
+            }
+        case .cancelled:
+            alertItem = AlertItem(
+                type: .info,
+                title: "Cancelled",
+                message: "Tokenization was cancelled manually by the user."
+            )
+            
+            Logger.tokenizedCard.info(
+                "🏁 Tokenization was cancelled manually by user"
+            )
+        }
+        
+        self.showCustomAlert(item: alertItem)
+    }
+    
+    func handleResult(_ result: TokenizationFormResult) {
+        let alertItem: AlertItem
+        
+        switch result {
+        case .complete(let value):
+            alertItem = AlertItem(
+                type: .success,
+                title: "Successful",
+                message: "Tokenization card was successful."
+            )
+            Logger.tokenizedCard.info(
+                "✅ Susses: Tokenization card was successful."
+            )
+            let valueDescription: String = value.debugDescription
+            Logger.tokenizedCard.info(
+                "✅ Susses: Tokenization card information: \(valueDescription)."
+            )
+            addNewCard(tokenizedCard: value)
+        case .failed(let error):
+            switch error {
+            case let .failed(message, _):
+                if let message = message, !message.isEmpty {
+                    alertItem = AlertItem(
+                        type: .error,
+                        title: "Failed",
+                        message: "Tokenization of card failed with message: \(message)."
+                    )
+                    Logger.tokenizedCard.warning(
+                        "⚠️ WARNING: An error with message \"\(message)\". Please try again. ⚠️"
+                    )
+                } else {
+                    alertItem = AlertItem(
+                        type: .error,
+                        title: "Failed",
+                        message: "An unknown error occurred with card tokenization. Please try again."
+                    )
+                    Logger.tokenizedCard.warning(
+                        "⚠️ WARNING: An error occurred during tokenization process. Please try again. ⚠️"
+                    )
+                }
+            case .cancelled:
+                alertItem = AlertItem(
+                    type: .info,
+                    title: "Cancelled",
+                    message: "Tokenization was cancelled manually by the user."
+                )
+                
+                Logger.tokenizedCard.info(
+                    "🏁 Tokenization was cancelled manually by user"
+                )
+            }
+        case .cancelled:
+            alertItem = AlertItem(
+                type: .info,
+                title: "Cancelled",
+                message: "Tokenization was cancelled manually by the user."
+            )
+            
+            Logger.tokenizedCard.info(
+                "🏁 Tokenization was cancelled manually by user"
+            )
+        }
+        
+        self.showCustomAlert(item: alertItem)
+    }
+    
+    func handleUIState(_ state: TokenizationFormUIState) {
+        switch state {
+            
+        case .startLoading:
+            Logger.tokenizedCard.info(
+                "🎬 StartLoading UI STATE"
+            )
+        case .stopLoading:
+            Logger.tokenizedCard.info(
+                "🏁 StopLoading UI STATE "
+            )
+        case .error(let message):
+            Logger.tokenizedCard.warning(
+                "⚠️ WARNING UI STATE: An error with message \"\(message)\". Please try again. ⚠️"
+            )
+        case .success:
+            
+            Logger.tokenizedCard.info(
+                "✅ Susses UI STATE: Tokenization card was successful."
+            )
+            
+        }
+    }
 }
 
 // MARK: - UITableViewDataSource
