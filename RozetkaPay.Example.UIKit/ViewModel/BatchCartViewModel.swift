@@ -13,7 +13,7 @@ final class BatchCartViewModel {
     
     var clientParameters: ClientAuthParameters {
         ClientAuthParameters(
-            token: credentials.AUTH_TOKEN,
+            token: credentials.AUTH_TOKEN_BATCH,
             widgetKey: credentials.WIDGET_KEY
         )
     }
