@@ -288,7 +288,7 @@ private extension CartViewController {
         case let .complete(orderId, paymentId, tokenizedCard):
             var text = "✅ Payment \(paymentId) was successful. Order ID: \(orderId)"
             if let tokenizedCard = tokenizedCard {
-                text += "TokenizedCard: \(tokenizedCard.cardInfo?.maskedNumber ?? tokenizedCard.name ?? tokenizedCard.token)"
+                text += "TokenizedCard: \(tokenizedCard.debugDescription)"
             }
             alertItem = AlertItem(
                 type: .success,
