@@ -29,7 +29,7 @@ class CardsListViewController: UIViewController {
         let stack = UIStackView(arrangedSubviews: [
             titleLable,
             tableView,
-            tokenizationContentView
+            tokenizationFormView
         ])
         stack.axis = .vertical
         stack.alignment = .fill
@@ -81,7 +81,7 @@ class CardsListViewController: UIViewController {
         return button
     }()
     
-    private lazy var tokenizationContentView: UIView = {
+    private lazy var tokenizationFormView: UIView = {
         let formView = RozetkaPaySDK.TokenizationFormView(
             parameters: TokenizationFormParameters(
                 client: viewModel.clientWidgetParameters,
@@ -102,7 +102,11 @@ class CardsListViewController: UIViewController {
                         mainButtonTopPadding: 50
                     ),
                     typography: RozetkaPayDomainThemeDefaults.typography(
-                        inputUI: UIFont.systemFont(ofSize: 6, weight: .regular)
+                        inputTextStyle: DomainTextStyle.init(
+                            fontSize: 6,
+                            lineHeight: 8,
+                            fontWeight: .normal
+                        )
                     )
                 )
             ),
@@ -210,9 +214,9 @@ private extension CardsListViewController {
     func addNewCard(tokenizedCard: TokenizedCard) {
         viewModel.add(
             item: CardToken(
-                paymentSystem: tokenizedCard.cardInfo?.paymentSystem,
+                paymentSystem: tokenizedCard.cardInfo.paymentSystem,
                 name: tokenizedCard.name,
-                maskedNumber: tokenizedCard.cardInfo?.maskedNumber ,
+                maskedNumber: tokenizedCard.cardInfo.maskedNumber ,
                 cardToken: tokenizedCard.token
             )
         )
