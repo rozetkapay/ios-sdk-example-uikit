@@ -102,10 +102,9 @@ class CardsListViewController: UIViewController {
                         mainButtonTopPadding: 50
                     ),
                     typography: RozetkaPayDomainThemeDefaults.typography(
-                        inputTextStyle: DomainTextStyle.init(
-                            fontSize: 6,
-                            lineHeight: 8,
-                            fontWeight: .normal
+                        fontFamily: .monospace,
+                        inputTextStyle: DomainTypographyDefaults.input(
+                            fontSize: 16
                         )
                     )
                 )
