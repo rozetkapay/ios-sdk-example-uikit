@@ -103,8 +103,13 @@ class CardsListViewController: UIViewController {
                     ),
                     typography: RozetkaPayDomainThemeDefaults.typography(
                         fontFamily: .monospace,
-                        inputTextStyle: DomainTypographyDefaults.input(
-                            fontSize: 16
+                        subtitleTextStyle: DomainTypographyDefaults.subtitle(
+                            fontSize: 6
+                        ),
+                        inputTextStyle: DomainTextStyle(
+                            from: UIFont(name: "HelveticaNeue-Medium", size: 20) ??
+                            UIFont.systemFont(ofSize: 6)
+                            
                         )
                     )
                 )
