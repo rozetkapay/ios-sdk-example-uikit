@@ -9,9 +9,7 @@ import UIKit
 
 extension UIViewController {
     func showCustomAlert(item: AlertItem) {
-        guard let windowScene = UIApplication.shared.connectedScenes
-                .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene,
-              let keyWindow = windowScene.windows.first(where: { $0.isKeyWindow }) else {
+        guard let keyWindow = UIApplication.shared.alertHostWindow else {
             print("⚠️ Couldn't find key window.")
             return
         }
@@ -54,5 +52,17 @@ extension UIViewController {
             alertView.alpha = 1
             alertView.transform = .identity
         }
+    }
+}
+
+//MARK: - Private
+private extension UIApplication {
+
+    var alertHostWindow: UIWindow? {
+        let scenes = connectedScenes.compactMap { $0 as? UIWindowScene }
+        let foregroundScenes = scenes.filter { $0.activationState == .foregroundActive }
+        let windows = (foregroundScenes.isEmpty ? scenes : foregroundScenes).flatMap { $0.windows }
+
+        return windows.first(where: { $0.isKeyWindow }) ?? windows.first
     }
 }
