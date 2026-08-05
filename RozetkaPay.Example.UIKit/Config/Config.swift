@@ -12,4 +12,5 @@ struct Config {
     static let exampleCallbackUrl = "https://example.com/callback"
     static let decimalSeparator: String = "."
     static let buttonCornerRadius: CGFloat = 16
+    static let applePayButtonHeight: CGFloat = 50
 }

@@ -9,6 +9,7 @@ import UIKit
 import RozetkaPaySDK
 import OSLog
 import SwiftUI
+import PassKit
 
 class CartViewController: UIViewController {
     
@@ -145,20 +146,43 @@ class CartViewController: UIViewController {
         checkBox.translatesAutoresizingMaskIntoConstraints = false
         return checkBox
     }()
-    
+
+    /// The host draws its own Apple Pay button and starts the payment through
+    /// `RozetkaPaySdk.payByApplePay` — the SDK renders no form of its own here.
+    private lazy var applePayButton: PKPaymentButton = {
+        let button = PKPaymentButton(paymentButtonType: .plain, paymentButtonStyle: .automatic)
+        button.cornerRadius = Config.buttonCornerRadius
+        button.translatesAutoresizingMaskIntoConstraints = false
+        let action = UIAction { [weak self] _ in
+            self?.didTapApplePayButton()
+        }
+        button.addAction(action, for: .primaryActionTriggered)
+        return button
+    }()
+
+    private lazy var loaderView: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        indicator.color = .systemGreen
+        indicator.hidesWhenStopped = true
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
+    }()
+
     private lazy var stackBottom: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [
             stackLable,
             checkBox,
-            checkoutButton
+            checkoutButton,
+            applePayButton
         ])
         stack.axis = .vertical
         stack.alignment = .fill
         stack.spacing = 20
+        stack.setCustomSpacing(8, after: checkoutButton)
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
-    
+
     //MARK: - Inits
     init(
         orderId: String? = nil,
@@ -199,28 +223,39 @@ private extension CartViewController {
             action: #selector(didTapBackButton)
         )
         view.backgroundColor = UIColor.systemBackground
-        
+
         view.addSubview(mainStack)
-        
+        view.addSubview(loaderView)
+
+        // Apple Pay is unusable on this device — collapse the row instead of
+        // showing a button that cannot start a payment.
+        applePayButton.isHidden = !RozetkaPaySdk.isApplePayAvailable(
+            config: viewModel.testApplePayConfig
+        )
+
         setupLayouts()
     }
-    
+
     func setupLayouts() {
         NSLayoutConstraint.activate([
-            
+
             mainStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: 20),
             mainStack.leftAnchor.constraint(equalTo: view.leftAnchor),
             mainStack.rightAnchor.constraint(equalTo: view.rightAnchor),
             mainStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            
+
             titleLable.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
             titleLable.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
-            
+
             stackBottom.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
             stackBottom.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
-            
+
             checkoutButton.heightAnchor.constraint(equalToConstant: 52),
-            stackLable.widthAnchor.constraint(equalTo: stackBottom.widthAnchor)
+            applePayButton.heightAnchor.constraint(equalToConstant: Config.applePayButtonHeight),
+            stackLable.widthAnchor.constraint(equalTo: stackBottom.widthAnchor),
+
+            loaderView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            loaderView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
     
@@ -268,10 +303,40 @@ private extension CartViewController {
         present(hostingController, animated: true, completion: nil)
     }
     
+    func didTapApplePayButton() {
+        setLoading(true)
+
+        RozetkaPaySdk.payByApplePay(
+            parameters: ApplePayFormParameters(
+                client: viewModel.clientParameters,
+                applePayConfig: viewModel.testApplePayConfig,
+                amountParameters: AmountParameters(
+                    amount: viewModel.totalNetAmountInCoins,
+                    tax: viewModel.totalVatAmountInCoins,
+                    total: viewModel.totalAmountInCoins,
+                    currencyCode: Config.defaultCurrencyCode
+                ),
+                externalId: viewModel.orderId,
+                callbackUrl: Config.exampleCallbackUrl
+            ),
+            presentingViewController: self,
+            onResultCallback: { [weak self] result in
+                self?.setLoading(false)
+                self?.handleResult(result)
+            }
+        )
+    }
+
+    func setLoading(_ isLoading: Bool) {
+        isLoading ? loaderView.startAnimating() : loaderView.stopAnimating()
+        applePayButton.isEnabled = !isLoading
+        checkoutButton.isEnabled = !isLoading
+    }
+
     func handleCheckBoxChanged(_ selected: Bool) {
         viewModel.isNeedToUseTokenizedCard = selected
     }
-    
+
     func handleResult(_ result: PaymentResult) {
         let alertItem: AlertItem
         
